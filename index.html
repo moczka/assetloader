@@ -1,0 +1,55 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+		<script src="ResourceLoader.js"></script>
+		<script src="main.js"></script>
+		<title>ResourceLoader Module</title>
+	</head>
+<body>
+	<main class="wrapper">
+	<pre class="sampleCode">
+		<code>
+var loaderOptions = {
+	assets : {
+		imgs : {
+			bg : "assets/sprites/background.png",
+			enemy_ships : "assets/sprites/enemyShips.png",
+			meteorSprite : "assets/sprites/meteorSprite.png",
+			mothershipSprite : "assets/sprites/motherships.png"
+		},
+		sounds : {
+			shoot: ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"],
+			soundTrack : ["assets/sounds/soundtrack.wav", "assets/sounds/soundtrack.mp3"],
+			perk : ["assets/sounds/perk.mp3", "assets/sounds/perk.wav"],
+			victory : ["assets/sounds/victory.wav", "assets/sounds/victory.mp3"]
+		}
+	},
+	onload : updateStatus,
+	final : finalCall
+}
+	
+ResourceLoader.init(loaderOptions);
+		</code>
+	</pre>
+	
+	<div class="statusBox">
+		<div class="statusBar" id="statusBar">
+		</div>
+	<button class="button" id="loadAssets">Load</button>
+	</div>
+	<article>
+		<header><h2>How To Access Assets:</h2></header>
+		<p>You can access assets by using the name of the module as the namespace followed by the dot operator <span class="codeText">(.assets)</span> and then the name of your asset. Of course, if your asset is an audio file, you can use the built in method of <span class="codeText">.play()</span> to playback the audio file.</p>
+		<p>For example, you can access the background image named "bg" in the module like so:<br>
+			<span class="codeText">ResourceLoader.assets.bg</span> you can also assets and play an audio file like so <span class="codeText">ResourceLoader.assets.shoot();</span> try this in your console, the ResourceLoader is a property of the window object and you should be able to play that audio file.
+		</p>
+		<p>As you can see by the loading bar above, you can have a callback function be called everytime an element is loaded. Once all assets have loaded, your final callback function will be called. You can access the percentage of loaded assets by reading the <span class="codeText">ResourceLoader.loaded</span> property which returns a decil representing the ammount of assets loaded (0.5 half of all assets). This property is useful for creating loading bars like the one above, this property is a getter so it is always updated.</p>
+		
+	</article>		
+	</main>
+</body>
+</html>

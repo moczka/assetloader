@@ -2,6 +2,7 @@ var ResourceLoader = (function(){
 	
 	var totalAssets = 0,
 		loadedAssets = 0,
+		assetsDownloaded = false,
 		UserOptions,
 		percentageLoaded,
 		audioSupport,
@@ -49,8 +50,12 @@ var ResourceLoader = (function(){
 	}
 	
 	function download(){
+		
 		//return if all assets have already loaded and indexed.
-		if(percentageLoaded === 1) return;
+		if(assetsDownloaded) return;
+		
+		//sets to true so this method (downloadAll()) is called only onced.
+		assetsDownloaded = true;
 		//creates the sound and image elements for each asset in the options argument.
 		for(var item in UserOptions.assets.imgs){
 			assets[item] = new Image();
@@ -86,9 +91,11 @@ var ResourceLoader = (function(){
 			item.target.removeEventListener('load', onLoad, false);
 		}
 		
+		//calculates the decimal value from ratio
 		var itemLoaded = item.target;
 		percentageLoaded = Math.floor((loadedAssets / totalAssets)*100)/100;
-				
+		
+		//call the appropriate callback function given the ammount of assets loaded.
 		if(UserOptions.onload){
 			UserOptions.onload(itemLoaded);
 		}
@@ -98,6 +105,7 @@ var ResourceLoader = (function(){
 		
 	}
 	
+	//gets the appropriate supported audio format.
 	function isAudioSupport(extension){
 		
 		var audio = new Audio();

@@ -13,6 +13,10 @@ span.codeText{
 	background: #fff;
 	font-weight: bold;
 }
+span.important{
+	color: red;
+	font-weight: bold;
+}
 
 p{
 	font-size: 1.1em;
@@ -60,6 +64,10 @@ main.wrapper{
 	border-radius: 8px;
 	background-color: dodgerblue;
 }
+.button:disabled{
+	background-color: red;
+}
+
 #loadAssets{
 	position: absolute;
 	left: 310px;

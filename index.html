@@ -42,6 +42,36 @@ ResourceLoader.init(loaderOptions);
 	<button class="button" id="loadAssets">Load</button>
 	</div>
 	<article>
+		<header><h2>Set Up Options Object</h2></header>
+		<p>In order to start using this module to load all your audio and graphic assets for your projects, you will first need to create an object literal containing all the necessary information such as callback function, asset names and sources and final callback function. Check the code above for an example of this options object. <span class="important">IMPORTANT!: </span>for audio files, you will need to declare your source files in an array given the fact that not all audio file format are supported by all browsers, the module will pick the first supported file format from this array, so make sure to organize them in order of preference.</p>
+		<pre class="sampleCode">
+			<code>
+.../
+assets : {
+		../
+		sounds : {
+			shoot: ["assets/sounds/shoot.mp3", "assets/sounds/shoot.wav"],
+			soundTrack : ["assets/sounds/soundtrack.mp3", "assets/sounds/soundtrack.wav"],
+		}
+			</code>
+		</pre>
+		<p>For graphic files, you can specify the source directly onto the property name of the asset. Make sure to declare your image assets under the <span class="codeText">imgs : {}</span> object and for the audio under <span class="codeText">sounds : {}</span> object.</p>
+		<p>If you want a function to be called everytime an asset is loaded, set the <span class="codeText">onload : callbackFunction</span> property to your callback function, an argument will be passed with the element that was loaded.</p>
+		<p>For the final call, once all your assets have loaded, you can set the final callback function to the <span class="codeText">final : finalCallback</span> property in your options object. Once your options folder is ready is time to initialize the module.</p>
+	</article>
+		
+	<article>
+	<header>
+	<h2>How To Initialize Module</h2>
+	</header>
+		<p>Initializing the module is very simple, all you do is call the <span class="codeText">ResourceLoader.init(options)</span> method in your module and pass in your options object literal. <span class="important">IMPORTANT!:</span> You should only initialize your module once!</p>
+	</article>
+<article>
+	<header><h2>Initialize Download/Load of Assets</h2></header>
+	<p>Once you have initialized your module with the desired options, it is time to tell your module to initialize downloading and loading all the assets, call the <span class="codeText">ResourceLoader.downloadAll()</span> method to perform this operation. This will start calling your callbacks everytime an asset is loaded and call your final callback function once it is done loading all the files.</p>
+		
+</article>
+	<article>
 		<header><h2>How To Access Assets:</h2></header>
 		<p>You can access assets by using the name of the module as the namespace followed by the dot operator <span class="codeText">(.assets)</span> and then the name of your asset. Of course, if your asset is an audio file, you can use the built in method of <span class="codeText">.play()</span> to playback the audio file.</p>
 		<p>For example, you can access the background image named "bg" in the module like so:<br>

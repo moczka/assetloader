@@ -27,7 +27,7 @@ function initApp(){
 	
 	ResourceLoader.init(loaderOptions);
 	
-	loadButton.onclick = function(){
+	loadButton.onclick = function(e){
 		ResourceLoader.downloadAll();
 	};
 	
@@ -37,6 +37,8 @@ function initApp(){
 		console.log('1 asset has loaded');
 	}
 	function finalCall(){
+		loadButton.disabled = true;
+		loadButton.innerHTML = "Loaded";
 		console.log('all assets have loaded');
 	}
 }

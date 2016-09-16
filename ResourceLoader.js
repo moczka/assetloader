@@ -88,12 +88,14 @@ var ResourceLoader = (function(){
 		
 		var itemLoaded = item.target;
 		percentageLoaded = Math.floor((loadedAssets / totalAssets)*100)/100;
-		
-    	if(UserOptions.onload) UserOptions.onload(itemLoaded);
-		
-		if(loadedAssets >= totalAssets && UserOptions.final){
-			UserOptions.final();
+				
+		if(UserOptions.onload){
+			UserOptions.onload(itemLoaded);
 		}
+		if(loadedAssets >= totalAssets && UserOptions.final){
+			UserOptions.final(itemLoaded);
+		}
+		
 	}
 	
 	function isAudioSupport(extension){

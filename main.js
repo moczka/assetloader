@@ -28,6 +28,7 @@ function initApp(){
 	ResourceLoader.init(loaderOptions);
 	
 	loadButton.onclick = function(e){
+        loadButton.innerHTML = "Loading";
 		ResourceLoader.downloadAll();
 	};
 	

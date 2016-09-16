@@ -75,7 +75,7 @@ assets : {
 		<header><h2>How To Access Assets:</h2></header>
 		<p>You can access assets by using the name of the module as the namespace followed by the dot operator <span class="codeText">(.assets)</span> and then the name of your asset. Of course, if your asset is an audio file, you can use the built in method of <span class="codeText">.play()</span> to playback the audio file.</p>
 		<p>For example, you can access the background image named "bg" in the module like so:<br>
-			<span class="codeText">ResourceLoader.assets.bg</span> you can also assets and play an audio file like so <span class="codeText">ResourceLoader.assets.shoot();</span> try this in your console, the ResourceLoader is a property of the window object and you should be able to play that audio file.
+			<span class="codeText">ResourceLoader.assets.bg</span> you can also assets and play an audio file like so <span class="codeText">ResourceLoader.assets.shoot.play();</span> try this in your console, the ResourceLoader is a property of the window object and you should be able to play that audio file.
 		</p>
 		<p>As you can see by the loading bar above, you can have a callback function be called everytime an element is loaded. Once all assets have loaded, your final callback function will be called. You can access the percentage of loaded assets by reading the <span class="codeText">ResourceLoader.loaded</span> property which returns a decil representing the ammount of assets loaded (0.5 half of all assets). This property is useful for creating loading bars like the one above, this property is a getter so it is always updated.</p>
 		

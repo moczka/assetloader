@@ -37,6 +37,7 @@ var ResourceLoader = (function(){
 				endSound : ["assets/sounds/gameover.mp3", "assets/sounds/gameover.wav"]
 			}
 		}
+        useHowl : false,
 			//function that is called on every item loaded
 		onload : updateLoaderDisplayer,
 			//function that is called once all have loaded
@@ -64,35 +65,54 @@ var ResourceLoader = (function(){
 			totalAssets++;
 		}
 		//arrays are passed for each sound asset containing the source to the sound.
-		for(var item in UserOptions.assets.sounds){
-			for(var i=0, j=UserOptions.assets.sounds[item].length; i<j; i++){
-			var currentSound = UserOptions.assets.sounds[item][i],
-				//analyzes the extension and picks the first one that is supported by the browser.
-			currentSoundExtension = currentSound.slice(currentSound.length-3, currentSound.length);
-				if(isAudioSupport(currentSoundExtension)){
-					assets[item] = new Audio();
-					assets[item].src = UserOptions.assets.sounds[item][i];
-					assets[item].addEventListener('canplaythrough', onLoad, false);
-					totalAssets++;
-					break;
-				}
-			}
+        if(!UserOptions.useHowl){
+            for(var item in UserOptions.assets.sounds){
+                for(var i=0, j=UserOptions.assets.sounds[item].length; i<j; i++){
+                var currentSound = UserOptions.assets.sounds[item][i];
+                    //analyzes the extension and picks the first one that is supported by the browser.
+                    if(isAudioSupport(currentSound.slice(-3))){
+                        assets[item] = new Audio();
+                        assets[item].src = UserOptions.assets.sounds[item][i];
+                        assets[item].addEventListener('canplaythrough', onLoad, false);
+                        totalAssets++;
+                        break;
+                    }
+                }
 
-		}
+            }
+        }else{
+            //creates howl instance and passes in howl options given by the user.
+            for(var item in UserOptions.assets.sounds){
+                var howlOptions = UserOptions.assets.sounds[item];
+                howlOptions.onload = (howlOptions.onload)? howlOptions.onload : onLoad;
+                assets[item] = new Howl(howlOptions); 
+                totalAssets++;
+                
+            }
+        }
 		
 	}
 	
 	function onLoad(item){
-		//increments load count and remove listeners.
+        
+        //increments load count and remove listeners.
 		loadedAssets++;
-		if(item.target.tagName === "AUDIO"){
-			item.target.removeEventListener('canplaythrough', onLoad, false);
-		}else{
-			item.target.removeEventListener('load', onLoad, false);
-		}
-		
+        
+        var itemLoaded;
+
+        if(item){
+            if(item.target.tagName === "AUDIO"){
+                itemLoaded = item.target;
+                item.target.removeEventListener('canplaythrough', onLoad, false);
+            }else if (item.target.tagName === "IMG"){
+                itemLoaded = item.target;
+                item.target.removeEventListener('load', onLoad, false);
+            }
+        }else{
+            itemLoaded = {name: "Howl sound", src: "Howl sound check sound"};   
+        }
+        
 		//calculates the decimal value from ratio
-		var itemLoaded = item.target;
 		percentageLoaded = Math.floor((loadedAssets / totalAssets)*100)/100;
 		
 		//call the appropriate callback function given the ammount of assets loaded.

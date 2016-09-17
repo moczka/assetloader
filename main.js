@@ -15,15 +15,21 @@ function initApp(){
 				mothershipSprite : "assets/sprites/motherships.png"
 			},
 			sounds : {
-				shoot: ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"],
-				soundTrack : ["assets/sounds/soundtrack.wav", "assets/sounds/soundtrack.mp3"],
-				perk : ["assets/sounds/perk.mp3", "assets/sounds/perk.wav"],
-				victory : ["assets/sounds/victory.wav", "assets/sounds/victory.mp3"]
+				shoot: {src: ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"], onload : function(){console.log("here");}},
+				soundTrack : { src: ["assets/sounds/soundtrack.wav", "assets/sounds/soundtrack.mp3"]},
+				perk : {src: ["assets/sounds/perk.mp3", "assets/sounds/perk.wav"]},
+				victory : {src: ["assets/sounds/victory.wav", "assets/sounds/victory.mp3"]}
 			}
 		},
+        useHowl: true,
 		onload : updateStatus,
 		final : finalCall
 	}
+    
+    window.hello = new Howl({src : ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"]});
+    console.log(hello);
+    
+    hello.play();
 	
 	ResourceLoader.init(loaderOptions);
 	
@@ -32,10 +38,12 @@ function initApp(){
 		ResourceLoader.downloadAll();
 	};
 	
-	function updateStatus(){
+	function updateStatus(e){
 		var currentWidth = Math.floor(maxWidth*ResourceLoader.loaded);
 		statusBar.setAttribute('style', 'width: '+currentWidth+'px;');
 		console.log('1 asset has loaded');
+        console.log(e.src);
+        console.log(e);
 	}
 	function finalCall(){
 		loadButton.disabled = true;

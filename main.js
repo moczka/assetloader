@@ -15,10 +15,10 @@ function initApp(){
 				mothershipSprite : "assets/sprites/motherships.png"
 			},
 			sounds : {
-				shoot: {src: ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"], onload : function(){console.log("here");}},
+				shoot: {src: ["assets/sounds/shoot.wav", "assets/sounds/shoot.mp3"]},
 				soundTrack : { src: ["assets/sounds/soundtrack.wav", "assets/sounds/soundtrack.mp3"]},
 				perk : {src: ["assets/sounds/perk.mp3", "assets/sounds/perk.wav"]},
-				victory : {src: ["assets/sounds/victory.wav", "assets/sounds/victory.mp3"]}
+				victory : {src: ["assets/sounds/victory.mp3", "assets/sounds/victory.wav"]}
 			}
 		},
         useHowl: true,

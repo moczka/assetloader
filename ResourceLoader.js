@@ -87,7 +87,6 @@ var ResourceLoader = (function(){
                 howlOptions.onload = onLoad;
                 assets[item] = new Howl(howlOptions); 
                 totalAssets++;
-                
             }
         }
 		
